@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Typing Speed Test - Test and improve your typing speed with this modern web app">
+    <title>Typing Speed Test | JavaScript Project</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ============ NAVIGATION BAR ============ -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <i class="fas fa-keyboard"></i> TypeMaster
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#test" >Test</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <!-- Hamburger menu for mobile -->
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============ HOME / HERO SECTION ============ -->
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Test Your <span class="gradient-text">Typing Speed</span>
+            </h1>
+            <p class="hero-subtitle">
+                Challenge yourself, improve your speed, and become a pro typist. 
+                Track your progress with detailed stats and history.
+            </p>
+            <a href="#test" class="hero-btn">
+                <i class="fas fa-play"></i> Start Typing Test
+            </a>
+
+            <!-- Feature cards -->
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <h3>Real-Time Speed</h3>
+                    <p>Track WPM and CPM as you type</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3>Accuracy Check</h3>
+                    <p>See correct and wrong letters live</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-trophy"></i></div>
+                    <h3>Track Progress</h3>
+                    <p>History & best score saved locally</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ TYPING TEST SECTION ============ -->
+    <section id="test" class="test-section">
+        <div class="container">
+            <h2 class="section-title">Typing Speed Test</h2>
+
+            <!-- Timer Option Buttons -->
+            <div class="timer-options">
+                <button class="timer-btn active" data-time="30">30s</button>
+                <button class="timer-btn" data-time="60">60s</button>
+                <button class="timer-btn" data-time="120">120s</button>
+            </div>
+
+            <!-- Sound Toggle -->
+            <div class="sound-toggle">
+                <label class="toggle-label">
+                    <input type="checkbox" id="soundToggle" checked>
+                    <span class="toggle-slider"></span>
+                    <i class="fas fa-volume-up"></i> Sound
+                </label>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <!-- Stats Row (live) -->
+            <div class="live-stats">
+                <div class="stat-box">
+                    <span class="stat-value" id="timerDisplay">30</span>
+                    <span class="stat-label">Seconds</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-value" id="liveWpm">0</span>
+                    <span class="stat-label">WPM</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-value" id="liveCpm">0</span>
+                    <span class="stat-label">CPM</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-value" id="liveMistakes">0</span>
+                    <span class="stat-label">Mistakes</span>
+                </div>
+            </div>
+
+            <!-- Paragraph Display Area -->
+            <div class="text-display" id="textDisplay">
+                <!-- Characters will be inserted here by JavaScript -->
+            </div>
+
+            <!-- Typing Input Area -->
+            <textarea 
+                id="typingInput" 
+                class="typing-input" 
+                placeholder="Click here and start typing..."
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+            ></textarea>
+
+            <!-- Buttons -->
+            <div class="test-buttons">
+                <button class="btn btn-restart" id="restartBtn">
+                    <i class="fas fa-redo"></i> Restart
+                </button>
+                <button class="btn btn-new" id="newTextBtn">
+                    <i class="fas fa-random"></i> New Text
+                </button>
+            </div>
+
+            <!-- Result Card (hidden until test ends) -->
+            <div class="result-card" id="resultCard" style="display:none;">
+                <h3 class="result-title">
+                    <i class="fas fa-chart-bar"></i> Your Results
+                </h3>
+                <div class="result-badge" id="resultBadge">Pro Typist</div>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <span class="result-value" id="resultWpm">0</span>
+                        <span class="result-label">WPM</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-value" id="resultCpm">0</span>
+                        <span class="result-label">CPM</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-value" id="resultAccuracy">0%</span>
+                        <span class="result-label">Accuracy</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-value" id="resultMistakes">0</span>
+                        <span class="result-label">Mistakes</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-value" id="resultTime">0s</span>
+                        <span class="result-label">Time Used</span>
+                    </div>
+                </div>
+                <p class="result-message" id="resultMessage"></p>
+            </div>
+
+            <!-- Best Score -->
+            <div class="best-score-card" id="bestScoreCard">
+                <i class="fas fa-crown"></i>
+                <span>Best Score: <strong id="bestScoreDisplay">0</strong> WPM</span>
+            </div>
+
+            <!-- History -->
+            <div class="history-section" id="historySection">
+                <h3><i class="fas fa-history"></i> Recent Attempts</h3>
+                <div class="history-list" id="historyList">
+                    <p class="no-history">No attempts yet. Start typing!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ ABOUT SECTION ============ -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title">About Project Guide</h2>
+            <div class="about-card">
+                <!-- Teacher Photo (circular frame) -->
+                <div class="teacher-photo">
+                    <img src="Abhisheksir.png" alt="Dr. Abhishek Thakur - Project Guide">
+                </div>
+                <h3 class="teacher-name">Dr.Abhishek Thakur</h3>
+                <p class="teacher-designation">Associate Professor</p>
+                <div class="divider"></div>
+                <p class="about-text">
+                    This project was developed under the guidance and inspiration of our 
+                    respected teacher whose support and teaching motivated this work. 
+                    Their dedication to helping students understand JavaScript concepts 
+                    and web development has been invaluable to our learning journey.
+                </p>
+                <div class="about-tags">
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">HTML5</span>
+                    <span class="tag">CSS3</span>
+                    <span class="tag">Web Development</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CONTACT / FOOTER ============ -->
+    <footer id="contact" class="footer-section">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3><i class="fas fa-keyboard"></i> TypeMaster</h3>
+                    <p>A JavaScript Project</p>
+                </div>
+                <div class="footer-info">
+                    <p><i class="fas fa-user-graduate"></i> Project by <strong>Nakul Vashisht and Parth Nargotra</strong></p>
+                    <p><i class="fas fa-book"></i> FEE Project</p>
+                    <p><i class="fas fa-calendar"></i> &copy; <span id="currentYear">2026</span></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Made with <i class="fas fa-heart" style="color:#ff4757;"></i> for Engineering</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Our JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
