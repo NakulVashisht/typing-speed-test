@@ -6,4 +6,5 @@ Key Features:
 ⏱️ Interactive Timer & Progress Bar: Visual feedback to keep you on pace during your test.
 💾 History Tracking: Automatically saves your past test results using localStorage so you can monitor your improvement over time.
 📱 Responsive & Modern UI: A visually stunning, accessible design that works seamlessly across desktops, tablets, and mobile devices.
+
 Originally developed as an engineering course project, this application features a robust structure that is easy to understand, making it a perfect showcase of fundamental frontend development skills.
